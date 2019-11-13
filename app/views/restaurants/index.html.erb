@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-5">
+      <h1>Restaurants</h1>
+      <ul  class="list-group">
+        <% @restaurants.each do |restaurant| %>
+          <li class="list-group-item">
+            <%= link_to restaurant.name, restaurant_path(restaurant) %>
+              <% if restaurant.average_rating < 0 %>
+                (No average rating yet)
+              <% elsif restaurant.average_rating < 0.25 %>
+                (<i class="fas fa-skull-crossbones"></i>)
+              <% else %>
+                (
+                <% restaurant.average_rating.floor.times do %>
+                  <i class="fas fa-star"></i>
+                <% end %>
+                <% if restaurant.average_rating - restaurant.average_rating.floor >= 0.25 && restaurant.average_rating - restaurant.average_rating.floor < 0.75 %>
+                  <i class="fas fa-star-half-alt"></i>
+                <% elsif restaurant.average_rating - restaurant.average_rating.floor >= 0.75 %>
+                  <i class="fas fa-star"></i>
+                <% end %>
+                )
+              <% end %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <%= link_to "Add new restaurant", new_restaurant_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>

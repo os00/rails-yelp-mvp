@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-5">
+      <h2>Restaurant <em><%= @restaurant.name %></em></h2>
+      <p>Category:</p>
+      <div class="card">
+        <%= @restaurant.category %>
+      </div>
+      <p>Phone number:</p>
+      <div class="card">
+        <%= @restaurant.phone_number %>
+      </div>
+      <p>Address:</p>
+      <div class="card">
+        <%= @restaurant.address %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <h5>Reviews</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <% if @reviews.count.zero? %>
+        <p><em>No review for this restaurant yet.</em></p>
+      <% else %>
+        <ul class="list-group">
+          <% @reviews.each do |review| %>
+            <li class="list-group-item">
+              <div>
+                Rating:
+                <% if review.rating.zero? %>
+                  <i class="fas fa-skull-crossbones"></i>
+                <% else %>
+                  <% review.rating.times do %>
+                    <i class="fas fa-star"></i>
+                  <% end %>
+                <% end %>
+              </div>
+              <br>
+              <p><%= review.content %></p>
+            </li>
+          <% end %>
+        </ul>
+        <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <%= link_to "Review this restaurant", new_restaurant_review_path(@restaurant), class: "btn btn-primary" %>
+      <%= link_to "Back to list", restaurants_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>
